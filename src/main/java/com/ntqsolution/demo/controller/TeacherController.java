@@ -35,11 +35,11 @@ public class TeacherController {
         try {
             Teacher teacher = teacherService.getTeacherById(id);
             if (teacher == null) {
-                return new ResponseEntity<>(new ResponseMessage("Teacher is not found!!!!", null), HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("Teacher is not found!!!!", HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(teacher, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseMessage("Teacher is not found!!!!", null), HttpStatus.GATEWAY_TIMEOUT);
+            return new ResponseEntity<>("Teacher is not found!!!!", HttpStatus.GATEWAY_TIMEOUT);
         }
     }
 
@@ -47,13 +47,13 @@ public class TeacherController {
     public ResponseEntity<?> createTeacher(@Validated @RequestBody Teacher teacher) {
         try {
             if (teacher == null) {
-                return new ResponseEntity<>(new ResponseMessage("Add failed!!!", null), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Add failed!!!", HttpStatus.BAD_REQUEST);
             }
             Teacher newTeacher = new Teacher(teacher.getName(), teacher.getPersonClass(), teacher.getSubject());
             teacherService.addTeacher(newTeacher);
             return new ResponseEntity<>("Add teacher successfully", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseMessage("Add failed!!!", null), HttpStatus.GATEWAY_TIMEOUT);
+            return new ResponseEntity<>("Add failed!!!", HttpStatus.GATEWAY_TIMEOUT);
         }
     }
 
@@ -61,7 +61,7 @@ public class TeacherController {
     public ResponseEntity<?> updateTeacher(@PathVariable("id") int id, @Validated @RequestBody Teacher teacher) {
         try {
             if (teacher == null) {
-                return new ResponseEntity<>(new ResponseMessage("Teacher is not found!!!", null), HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("Teacher is not found!!!", HttpStatus.NOT_FOUND);
             }
             Teacher oldTeacher = teacherService.getTeacherById(id);
             teacher.setId(oldTeacher.getId());
@@ -71,7 +71,7 @@ public class TeacherController {
             teacherService.updateTeacher(teacher);
             return new ResponseEntity<>("Update teacher successfully", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseMessage("Update failed!!!", null), HttpStatus.GATEWAY_TIMEOUT);
+            return new ResponseEntity<>("Update failed!!!", HttpStatus.GATEWAY_TIMEOUT);
         }
     }
 
@@ -80,12 +80,12 @@ public class TeacherController {
         try {
             Teacher teacher = teacherService.getTeacherById(id);
             if (teacher == null) {
-                return new ResponseEntity<>(new ResponseMessage("Teacher is not found!!!", null), HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("Teacher is not found!!!", HttpStatus.NOT_FOUND);
             }
             teacherService.deleteTeacher(teacher);
             return new ResponseEntity<>("Delete teacher successfully", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseMessage("Delete failed!!!", null), HttpStatus.GATEWAY_TIMEOUT);
+            return new ResponseEntity<>("Delete failed!!!", HttpStatus.GATEWAY_TIMEOUT);
         }
     }
 }

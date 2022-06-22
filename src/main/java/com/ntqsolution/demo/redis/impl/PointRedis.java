@@ -13,7 +13,7 @@ public class PointRedis extends BaseRedis implements PointRedisRepository {
         //TODO convert Map<String,String> to Map<String, Integer>
         Map<String, Integer> map = new ConcurrentHashMap<>();
         for (String keys : getAll(key).keySet()) {
-            map.put(key, Integer.parseInt(getAll(key).get(keys)));
+            map.put(keys, Integer.parseInt(getAll(key).get(keys)));
         }
         return map;
     }
