@@ -6,10 +6,10 @@ import com.ntqsolution.demo.response.BaseResponse;
 public abstract class BaseAPI {
     public BaseResponse doExecute(BaseRequest request) {
         //validateRequest(request);
-        return execute(request.getData());
+        return execute(request);
     }
 
     protected abstract void validateRequest(BaseRequest request);
 
-    protected abstract BaseResponse execute(Object data);
+    protected abstract BaseResponse execute(BaseRequest request);
 }

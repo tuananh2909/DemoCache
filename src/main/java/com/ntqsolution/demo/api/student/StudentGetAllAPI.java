@@ -23,7 +23,7 @@ public class StudentGetAllAPI extends BaseAPI {
     }
 
     @Override
-    protected BaseResponse execute(Object data) {
+    protected BaseResponse execute(BaseRequest request) {
         try {
             List<Student> studentList = studentService.getStudents();
             if (studentList.isEmpty()) {

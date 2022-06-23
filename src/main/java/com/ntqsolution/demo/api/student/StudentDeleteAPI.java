@@ -21,13 +21,13 @@ public class StudentDeleteAPI extends BaseAPI {
     }
 
     @Override
-    protected BaseResponse execute(Object data) {
+    protected BaseResponse execute(BaseRequest request) {
         try {
-            Student student = studentService.getStudentById((Integer) data);
+            Student student = studentService.getStudentById((Integer) request.getData());
             if (student == null) {
                 return new ResponseMessage("Student is not found!!!", null, HttpStatus.NOT_FOUND);
             }
-            studentService.deleteStudent((Integer) data);
+            studentService.deleteStudent((Integer) request.getData());
             return new ResponseMessage("Delete student successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseMessage("Delete failed!!!", null, HttpStatus.GATEWAY_TIMEOUT);

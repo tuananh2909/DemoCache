@@ -21,8 +21,8 @@ public class StudentCreateAPI extends BaseAPI {
     }
 
     @Override
-    protected BaseResponse execute(Object data) {
-        Student student = (Student) data;
+    protected BaseResponse execute(BaseRequest request) {
+        Student student = (Student) request.getData();
         try {
             if (student == null) {
                 return new ResponseMessage("Add failed!!!", HttpStatus.BAD_REQUEST);

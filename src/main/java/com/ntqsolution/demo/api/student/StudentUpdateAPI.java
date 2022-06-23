@@ -21,8 +21,8 @@ public class StudentUpdateAPI extends BaseAPI {
     }
 
     @Override
-    protected BaseResponse execute(Object data) {
-        Student student = (Student) data;
+    protected BaseResponse execute(BaseRequest request) {
+        Student student = (Student) request.getData();
         try {
             if (student == null) {
                 return new ResponseMessage("Student is not found!!!", null, HttpStatus.NOT_FOUND);
