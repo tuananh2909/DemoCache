@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PointMakeRequest extends BaseRequest {
-    private int studentId;
+    private String studentId;
 
-    public PointMakeRequest(Object data, int studentId) {
+    public PointMakeRequest(String studentId, Object data) {
         super(data);
         this.studentId = studentId;
     }

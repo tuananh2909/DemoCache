@@ -30,12 +30,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getStudentById(int id) {
+    public Student getStudentById(String id) {
         return studentRedis.getStudentById(id);
     }
 
     @Override
-    public void deleteStudent(int id) {
+    public void deleteStudent(String id) {
         studentRedis.deleteStudent(id);
     }
 }

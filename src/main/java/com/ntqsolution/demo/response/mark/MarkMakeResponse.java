@@ -9,6 +9,6 @@ import lombok.Setter;
 public class MarkMakeResponse extends Response {
 
     int totalPoints;
-    int studentId;
+    String studentId;
 
 }

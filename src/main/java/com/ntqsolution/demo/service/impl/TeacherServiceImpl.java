@@ -29,7 +29,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Teacher getTeacherById(int id) {
+    public Teacher getTeacherById(String id) {
         return teacherRedis.getTeacherById(id);
     }
 

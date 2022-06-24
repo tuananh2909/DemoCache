@@ -30,7 +30,7 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getTeacherById(@PathVariable("id") int id) {
+    public ResponseEntity<?> getTeacherById(@PathVariable("id") String id) {
         try {
             Teacher teacher = teacherService.getTeacherById(id);
             if (teacher == null) {
@@ -57,7 +57,7 @@ public class TeacherController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateTeacher(@PathVariable("id") int id, @Validated @RequestBody Teacher teacher) {
+    public ResponseEntity<?> updateTeacher(@PathVariable("id") String id, @Validated @RequestBody Teacher teacher) {
         try {
             if (teacher == null) {
                 return new ResponseEntity<>("Teacher is not found!!!", HttpStatus.NOT_FOUND);
@@ -75,7 +75,7 @@ public class TeacherController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTeacher(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteTeacher(@PathVariable("id") String id) {
         try {
             Teacher teacher = teacherService.getTeacherById(id);
             if (teacher == null) {

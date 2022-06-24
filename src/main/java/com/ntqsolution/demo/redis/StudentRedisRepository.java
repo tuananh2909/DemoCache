@@ -7,9 +7,9 @@ import java.util.List;
 public interface StudentRedisRepository {
     void setStudent(Student student);
 
-    Student getStudentById(int id);
+    Student getStudentById(String id);
 
     List<Student> getStudent();
 
-    void deleteStudent(int id);
+    void deleteStudent(String id);
 }

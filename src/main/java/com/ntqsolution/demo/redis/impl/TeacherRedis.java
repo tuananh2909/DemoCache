@@ -1,10 +1,10 @@
 package com.ntqsolution.demo.redis.impl;
 
-import com.google.gson.Gson;
 import com.ntqsolution.demo.entity.Teacher;
 import com.ntqsolution.demo.redis.BaseRedis;
-import com.ntqsolution.demo.redis.ConvertRedis;
+import com.ntqsolution.demo.redis.AbstractRepository;
 import com.ntqsolution.demo.redis.TeacherRedisRepository;
+import com.ntqsolution.demo.utils.GsonUtil;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,39 +12,32 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class TeacherRedis extends BaseRedis implements TeacherRedisRepository, ConvertRedis<Teacher> {
+public class TeacherRedis extends AbstractRepository<Teacher> implements TeacherRedisRepository {
     private static final String TEACHER_KEY = "Teacher";
-    private final Gson gson = new Gson();
 
     public void setTeacher(Teacher teacher) {
-        set(TEACHER_KEY, Integer.toString(teacher.getId()), convertToString(teacher));
+        insert(TEACHER_KEY, teacher.getId(), teacher);
     }
 
-    public Teacher getTeacherById(int id) {
-        String teacher = get(TEACHER_KEY, Integer.toString(id));
-        return convertToObj(teacher);
+    public Teacher getTeacherById(String id) {
+        return getEntityById(TEACHER_KEY, id);
     }
 
     public List<Teacher> getTeachers() {
-        Map<String, String> teachers = getAll(TEACHER_KEY);
-        List<Teacher> listTeachers = new ArrayList<>();
-        for (String keys : teachers.keySet()) {
-            listTeachers.add(convertToObj(teachers.get(keys)));
-        }
-        return listTeachers;
+        return getEntities(TEACHER_KEY);
     }
 
-    public void deleteTeacher(int id) {
-        delete(TEACHER_KEY, Integer.toString(id));
+    public void deleteTeacher(String id) {
+        deleteEntity(TEACHER_KEY, id);
     }
 
     @Override
-    public String convertToString(Teacher teacher) {
-        return gson.toJson(teacher);
+    protected Teacher convertToEntity(String string) {
+        return (Teacher) GsonUtil.convertToObject(string);
     }
 
     @Override
-    public Teacher convertToObj(String string) {
-        return gson.fromJson(string, Teacher.class);
+    protected String convertToDatabaseObject(Teacher entity) {
+        return GsonUtil.convertFromObject(entity);
     }
 }

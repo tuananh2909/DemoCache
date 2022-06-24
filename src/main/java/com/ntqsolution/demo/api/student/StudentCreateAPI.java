@@ -6,6 +6,7 @@ import com.ntqsolution.demo.request.BaseRequest;
 import com.ntqsolution.demo.response.BaseResponse;
 import com.ntqsolution.demo.response.Response;
 import com.ntqsolution.demo.service.StudentService;
+import com.ntqsolution.demo.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class StudentCreateAPI extends BaseAPI {
     protected BaseResponse execute(BaseRequest request) {
         Student student = (Student) request.getData();
         try {
-            if (student == null) {
+            if (Util.isNull(student)) {
                 return new BaseResponse("Add failed!!!", HttpStatus.BAD_REQUEST);
             }
             Student newStudent = new Student(student.getName(), student.getPersonClass(), student.getTotalMark());

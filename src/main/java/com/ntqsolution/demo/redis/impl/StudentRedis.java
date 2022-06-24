@@ -1,10 +1,9 @@
 package com.ntqsolution.demo.redis.impl;
 
-import com.google.gson.Gson;
 import com.ntqsolution.demo.entity.Student;
-import com.ntqsolution.demo.redis.BaseRedis;
-import com.ntqsolution.demo.redis.ConvertRedis;
+import com.ntqsolution.demo.redis.AbstractRepository;
 import com.ntqsolution.demo.redis.StudentRedisRepository;
+import com.ntqsolution.demo.utils.GsonUtil;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,40 +11,34 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class StudentRedis extends BaseRedis implements StudentRedisRepository, ConvertRedis<Student> {
+public class StudentRedis extends AbstractRepository<Student> implements StudentRedisRepository {
     private static final String STUDENT_KEY = "Student";
 
-    private final Gson gson = new Gson();
 
     public void setStudent(Student student) {
-        set(STUDENT_KEY, Integer.toString(student.getId()), convertToString(student));
+        insert(STUDENT_KEY, student.getId(), student);
     }
 
-    public Student getStudentById(int id) {
-        String student = get(STUDENT_KEY, Integer.toString(id));
-        return convertToObj(student);
+    public Student getStudentById(String id) {
+        return getEntityById(STUDENT_KEY, id);
     }
 
     public List<Student> getStudent() {
-        Map<String, String> students = getAll(STUDENT_KEY);
-        List<Student> studentList = new ArrayList<>();
-        for (String keys : students.keySet()) {
-            studentList.add(convertToObj(students.get(keys)));
-        }
-        return studentList;
+        return getEntities(STUDENT_KEY);
     }
 
-    public void deleteStudent(int id) {
-        delete(STUDENT_KEY, Integer.toString(id));
+    public void deleteStudent(String id) {
+        deleteEntity(STUDENT_KEY, id);
+    }
+
+
+    @Override
+    protected Student convertToEntity(String string) {
+        return (Student) GsonUtil.convertToObject(string);
     }
 
     @Override
-    public String convertToString(Student student) {
-        return gson.toJson(student);
-    }
-
-    @Override
-    public Student convertToObj(String string) {
-        return gson.fromJson(string, Student.class);
+    protected String convertToDatabaseObject(Student entity) {
+        return GsonUtil.convertFromObject(entity);
     }
 }

@@ -5,6 +5,7 @@ import com.ntqsolution.demo.entity.Student;
 import com.ntqsolution.demo.request.BaseRequest;
 import com.ntqsolution.demo.response.BaseResponse;
 import com.ntqsolution.demo.response.Response;
+import com.ntqsolution.demo.response.student.StudentGetAllResponse;
 import com.ntqsolution.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +25,14 @@ public class StudentGetAllAPI extends BaseAPI {
 
     @Override
     protected BaseResponse execute(BaseRequest request) {
+        StudentGetAllResponse response = new StudentGetAllResponse();
         try {
             List<Student> studentList = studentService.getStudents();
             if (studentList.isEmpty()) {
                 return new BaseResponse("List student is empty!!!", HttpStatus.NO_CONTENT);
             }
-            return new BaseResponse("Student list is have", null, HttpStatus.OK);
+            response.setStudentList(studentList);
+            return new BaseResponse("Student list is have", response, HttpStatus.OK);
         } catch (Exception e) {
             return new BaseResponse("Cannot have list student", HttpStatus.INTERNAL_SERVER_ERROR);
         }
