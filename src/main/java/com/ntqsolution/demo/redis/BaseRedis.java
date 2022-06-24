@@ -13,9 +13,11 @@ public abstract class BaseRedis {
         try {
             Jedis jedis = getConnection();
             jedis.hset(key, filed, value);
+            jedis.close();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
+        //try catch resource
     }
 
     protected Map<String, String> getAll(String key) {

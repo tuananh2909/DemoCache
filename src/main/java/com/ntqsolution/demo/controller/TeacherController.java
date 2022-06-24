@@ -1,7 +1,6 @@
 package com.ntqsolution.demo.controller;
 
 import com.ntqsolution.demo.entity.Teacher;
-import com.ntqsolution.demo.response.ResponseMessage;
 import com.ntqsolution.demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

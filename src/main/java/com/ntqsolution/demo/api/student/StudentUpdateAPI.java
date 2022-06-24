@@ -4,7 +4,7 @@ import com.ntqsolution.demo.api.BaseAPI;
 import com.ntqsolution.demo.entity.Student;
 import com.ntqsolution.demo.request.BaseRequest;
 import com.ntqsolution.demo.response.BaseResponse;
-import com.ntqsolution.demo.response.ResponseMessage;
+import com.ntqsolution.demo.response.Response;
 import com.ntqsolution.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ public class StudentUpdateAPI extends BaseAPI {
         Student student = (Student) request.getData();
         try {
             if (student == null) {
-                return new ResponseMessage("Student is not found!!!", null, HttpStatus.NOT_FOUND);
+                return new BaseResponse("Student is not found!!!", null, HttpStatus.NOT_FOUND);
             }
             Student oldStudent = studentService.getStudentById(student.getId());
             student.setId(oldStudent.getId());
@@ -33,9 +33,9 @@ public class StudentUpdateAPI extends BaseAPI {
             student.setPersonClass((student.getPersonClass() == null) ? oldStudent.getPersonClass() : student.getPersonClass());
             student.setTotalMark(oldStudent.getTotalMark());
             studentService.updateStudent(student);
-            return new ResponseMessage("Update student successfully", HttpStatus.OK);
+            return new BaseResponse("Update student successfully", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseMessage("Update failed!!!", null, HttpStatus.GATEWAY_TIMEOUT);
+            return new BaseResponse("Update failed!!!", null, HttpStatus.GATEWAY_TIMEOUT);
         }
     }
 }

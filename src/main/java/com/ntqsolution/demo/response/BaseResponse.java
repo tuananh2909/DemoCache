@@ -5,8 +5,15 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public abstract class BaseResponse {
+@AllArgsConstructor
+public class BaseResponse {
+    private String message;
+    private Response data;
     private HttpStatus status;
+
+    public BaseResponse(String message, HttpStatus status) {
+        this.message = message;
+        this.status = status;
+    }
 }
