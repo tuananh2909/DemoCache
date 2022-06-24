@@ -9,6 +9,7 @@ import com.ntqsolution.demo.response.BaseResponse;
 import com.ntqsolution.demo.response.Response;
 import com.ntqsolution.demo.response.mark.MarkMakeResponse;
 import com.ntqsolution.demo.service.StudentService;
+import com.ntqsolution.demo.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -29,15 +30,14 @@ public class PointMakeAPI extends BaseAPI {
     @Override
     protected BaseResponse execute(BaseRequest request) {
         PointMakeRequest pointRequest = (PointMakeRequest) request;
-        int studentId = pointRequest.getStudentId();
+        String studentId = pointRequest.getStudentId();
         String point = (String) request.getData();
         int sumMark;
         MarkMakeResponse response = new MarkMakeResponse();
         response.setStudentId(studentId);
-
         Map<String, Integer> mapCache = CacheMemory.get();
         Student student = studentService.getStudentById(studentId);
-        if (student == null || !CacheMemory.isPointExisted(point)) {
+        if (Util.isNull(student) || !CacheMemory.isPointExisted(point)) {
             return new BaseResponse("Cannot make point!!!", HttpStatus.NOT_FOUND);
         }
         try {
