@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class Person {
+public class Person extends AbstractEntity {
     private String id;
     private String name;
     private String personClass;

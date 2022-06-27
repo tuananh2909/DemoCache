@@ -1,19 +1,19 @@
-package com.ntqsolution.demo.api.student;
+package com.ntqsolution.demo.api.teacher;
 
 import com.ntqsolution.demo.api.BaseAPI;
-import com.ntqsolution.demo.entity.Student;
+import com.ntqsolution.demo.entity.Teacher;
 import com.ntqsolution.demo.request.BaseRequest;
 import com.ntqsolution.demo.response.BaseResponse;
-import com.ntqsolution.demo.service.StudentService;
+import com.ntqsolution.demo.service.TeacherService;
 import com.ntqsolution.demo.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StudentCreateAPI extends BaseAPI {
+public class TeacherCreateAPI extends BaseAPI {
     @Autowired
-    StudentService studentService;
+    TeacherService teacherService;
 
     @Override
     protected void validateRequest(BaseRequest request) {
@@ -22,17 +22,16 @@ public class StudentCreateAPI extends BaseAPI {
 
     @Override
     protected BaseResponse execute(BaseRequest request) {
-        Student student = (Student) request.getData();
+        Teacher teacher = (Teacher) request.getData();
         try {
-            if (Util.isNull(student)) {
+            if (Util.isNull(teacher)) {
                 return new BaseResponse("Add failed!!!", HttpStatus.BAD_REQUEST);
             }
-            Student newStudent = new Student(student.getName(), student.getPersonClass(), student.getTotalMark());
-            studentService.addStudent(newStudent);
-            return new BaseResponse("Add student successfully", HttpStatus.OK);
+            Teacher newTeacher = new Teacher(teacher.getName(), teacher.getPersonClass(), teacher.getSubject());
+            teacherService.addTeacher(newTeacher);
+            return new BaseResponse("Add teacher successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new BaseResponse("Add failed!!!", HttpStatus.GATEWAY_TIMEOUT);
         }
     }
 }
-

@@ -1,6 +1,6 @@
 package com.ntqsolution.demo;
 
-import com.ntqsolution.demo.redis.impl.PointRedis;
+import com.ntqsolution.demo.redis.impl.PointRedisRepositoryImpl;
 import com.ntqsolution.demo.utils.Const;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ public class CacheMemory {
     public static Map<String, Integer> map = new ConcurrentHashMap<>();
 
     public static void initCache() {
-        map = new PointRedis().getPoints(Const.POINT_KEY);
+        map = new PointRedisRepositoryImpl().getPoints(Const.POINT_KEY);
     }
 
     public static Map<String, Integer> get() {

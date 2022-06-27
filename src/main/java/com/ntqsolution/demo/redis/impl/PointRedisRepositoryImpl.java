@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
-public class PointRedis extends BaseRedis implements PointRedisRepository {
+public class PointRedisRepositoryImpl extends BaseRedis implements PointRedisRepository {
     public Map<String, Integer> getPoints(String key) {
         //TODO convert Map<String,String> to Map<String, Integer>
         Map<String, Integer> map = new ConcurrentHashMap<>();

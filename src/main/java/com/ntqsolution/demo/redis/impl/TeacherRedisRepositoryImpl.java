@@ -1,18 +1,16 @@
 package com.ntqsolution.demo.redis.impl;
 
+import com.ntqsolution.demo.entity.AbstractEntity;
 import com.ntqsolution.demo.entity.Teacher;
-import com.ntqsolution.demo.redis.BaseRedis;
 import com.ntqsolution.demo.redis.AbstractRepository;
 import com.ntqsolution.demo.redis.TeacherRedisRepository;
 import com.ntqsolution.demo.utils.GsonUtil;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Repository
-public class TeacherRedis extends AbstractRepository<Teacher> implements TeacherRedisRepository {
+public class TeacherRedisRepositoryImpl extends AbstractRepository<Teacher> implements TeacherRedisRepository {
     private static final String TEACHER_KEY = "Teacher";
 
     public void setTeacher(Teacher teacher) {
@@ -20,10 +18,10 @@ public class TeacherRedis extends AbstractRepository<Teacher> implements Teacher
     }
 
     public Teacher getTeacherById(String id) {
-        return getEntityById(TEACHER_KEY, id);
+        return (Teacher) getEntityById(TEACHER_KEY, id);
     }
 
-    public List<Teacher> getTeachers() {
+    public List<AbstractEntity> getTeachers() {
         return getEntities(TEACHER_KEY);
     }
 

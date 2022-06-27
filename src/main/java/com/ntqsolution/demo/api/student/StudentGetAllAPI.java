@@ -1,10 +1,9 @@
 package com.ntqsolution.demo.api.student;
 
 import com.ntqsolution.demo.api.BaseAPI;
-import com.ntqsolution.demo.entity.Student;
+import com.ntqsolution.demo.entity.AbstractEntity;
 import com.ntqsolution.demo.request.BaseRequest;
 import com.ntqsolution.demo.response.BaseResponse;
-import com.ntqsolution.demo.response.Response;
 import com.ntqsolution.demo.response.student.StudentGetAllResponse;
 import com.ntqsolution.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class StudentGetAllAPI extends BaseAPI {
     protected BaseResponse execute(BaseRequest request) {
         StudentGetAllResponse response = new StudentGetAllResponse();
         try {
-            List<Student> studentList = studentService.getStudents();
+            List<AbstractEntity> studentList = studentService.getStudents();
             if (studentList.isEmpty()) {
                 return new BaseResponse("List student is empty!!!", HttpStatus.NO_CONTENT);
             }

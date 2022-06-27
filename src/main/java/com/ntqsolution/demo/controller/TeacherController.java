@@ -1,6 +1,13 @@
 package com.ntqsolution.demo.controller;
 
+import com.ntqsolution.demo.api.teacher.*;
 import com.ntqsolution.demo.entity.Teacher;
+import com.ntqsolution.demo.request.student.StudentDeleteRequest;
+import com.ntqsolution.demo.request.teacher.TeacherCreateRequest;
+import com.ntqsolution.demo.request.teacher.TeacherGetAllRequest;
+import com.ntqsolution.demo.request.teacher.TeacherGetByIdRequest;
+import com.ntqsolution.demo.request.teacher.TeacherUpdateRequest;
+import com.ntqsolution.demo.response.BaseResponse;
 import com.ntqsolution.demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,83 +15,50 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/teachers")
 public class TeacherController {
     @Autowired
     TeacherService teacherService;
 
+    @Autowired
+    TeacherGetAllAPI teacherGetAllAPI;
+
+    @Autowired
+    TeacherGetByIdAPI teacherGetByIdAPI;
+
+    @Autowired
+    TeacherCreateAPI teacherCreateAPI;
+
+    @Autowired
+    TeacherUpdateAPI teacherUpdateAPI;
+
+    @Autowired
+    TeacherDeleteAPI teacherDeleteAPI;
+
     @GetMapping
-    public ResponseEntity<?> getAllTeacher() {
-        try {
-            List<Teacher> teacherList = teacherService.getTeachers();
-            if (teacherList.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(teacherList, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public BaseResponse getAllTeacher() {
+        return teacherGetAllAPI.doExecute(new TeacherGetAllRequest());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getTeacherById(@PathVariable("id") String id) {
-        try {
-            Teacher teacher = teacherService.getTeacherById(id);
-            if (teacher == null) {
-                return new ResponseEntity<>("Teacher is not found!!!!", HttpStatus.NOT_FOUND);
-            }
-            return new ResponseEntity<>(teacher, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Teacher is not found!!!!", HttpStatus.GATEWAY_TIMEOUT);
-        }
+    public BaseResponse getTeacherById(@PathVariable("id") String id) {
+        return teacherGetByIdAPI.doExecute(new TeacherGetByIdRequest(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> createTeacher(@Validated @RequestBody Teacher teacher) {
-        try {
-            if (teacher == null) {
-                return new ResponseEntity<>("Add failed!!!", HttpStatus.BAD_REQUEST);
-            }
-            Teacher newTeacher = new Teacher(teacher.getName(), teacher.getPersonClass(), teacher.getSubject());
-            teacherService.addTeacher(newTeacher);
-            return new ResponseEntity<>("Add teacher successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Add failed!!!", HttpStatus.GATEWAY_TIMEOUT);
-        }
+    public BaseResponse createTeacher(@Validated @RequestBody Teacher teacher) {
+        return teacherCreateAPI.doExecute(new TeacherCreateRequest(teacher));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateTeacher(@PathVariable("id") String id, @Validated @RequestBody Teacher teacher) {
-        try {
-            if (teacher == null) {
-                return new ResponseEntity<>("Teacher is not found!!!", HttpStatus.NOT_FOUND);
-            }
-            Teacher oldTeacher = teacherService.getTeacherById(id);
-            teacher.setId(oldTeacher.getId());
-            teacher.setName((teacher.getName() == null) ? oldTeacher.getName() : teacher.getName());
-            teacher.setPersonClass((teacher.getPersonClass() == null) ? oldTeacher.getPersonClass() : teacher.getPersonClass());
-            teacher.setSubject((teacher.getSubject() == null) ? oldTeacher.getSubject() : teacher.getSubject());
-            teacherService.updateTeacher(teacher);
-            return new ResponseEntity<>("Update teacher successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Update failed!!!", HttpStatus.GATEWAY_TIMEOUT);
-        }
+    public BaseResponse updateTeacher(@PathVariable("id") String id, @Validated @RequestBody Teacher teacher) {
+        teacher.setId(id);
+        return teacherUpdateAPI.doExecute(new TeacherUpdateRequest(teacher));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTeacher(@PathVariable("id") String id) {
-        try {
-            Teacher teacher = teacherService.getTeacherById(id);
-            if (teacher == null) {
-                return new ResponseEntity<>("Teacher is not found!!!", HttpStatus.NOT_FOUND);
-            }
-            teacherService.deleteTeacher(teacher);
-            return new ResponseEntity<>("Delete teacher successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Delete failed!!!", HttpStatus.GATEWAY_TIMEOUT);
-        }
+    public BaseResponse deleteTeacher(@PathVariable("id") String id) {
+        return teacherDeleteAPI.doExecute(new StudentDeleteRequest(id));
     }
 }

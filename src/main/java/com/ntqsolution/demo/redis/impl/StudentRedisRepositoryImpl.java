@@ -1,17 +1,16 @@
 package com.ntqsolution.demo.redis.impl;
 
+import com.ntqsolution.demo.entity.AbstractEntity;
 import com.ntqsolution.demo.entity.Student;
 import com.ntqsolution.demo.redis.AbstractRepository;
 import com.ntqsolution.demo.redis.StudentRedisRepository;
 import com.ntqsolution.demo.utils.GsonUtil;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Repository
-public class StudentRedis extends AbstractRepository<Student> implements StudentRedisRepository {
+public class StudentRedisRepositoryImpl extends AbstractRepository<Student> implements StudentRedisRepository {
     private static final String STUDENT_KEY = "Student";
 
 
@@ -20,10 +19,10 @@ public class StudentRedis extends AbstractRepository<Student> implements Student
     }
 
     public Student getStudentById(String id) {
-        return getEntityById(STUDENT_KEY, id);
+        return (Student) getEntityById(STUDENT_KEY, id);
     }
 
-    public List<Student> getStudent() {
+    public List<AbstractEntity> getStudent() {
         return getEntities(STUDENT_KEY);
     }
 

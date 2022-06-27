@@ -2,7 +2,7 @@ package com.ntqsolution.demo.controller;
 
 import com.ntqsolution.demo.api.mark.PointMakeAPI;
 import com.ntqsolution.demo.api.mark.PointSettingAPI;
-import com.ntqsolution.demo.redis.impl.PointRedis;
+import com.ntqsolution.demo.redis.impl.PointRedisRepositoryImpl;
 import com.ntqsolution.demo.request.mark.PointMakeRequest;
 import com.ntqsolution.demo.request.mark.PointSettingRequest;
 import com.ntqsolution.demo.response.BaseResponse;
@@ -19,7 +19,7 @@ public class MarkController {
     StudentService studentService;
 
     @Autowired
-    PointRedis pointRedis;
+    PointRedisRepositoryImpl pointRedisRepositoryImpl;
 
     @Autowired
     PointMakeAPI pointMakeAPI;

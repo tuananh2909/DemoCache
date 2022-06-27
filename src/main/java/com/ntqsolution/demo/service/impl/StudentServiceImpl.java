@@ -1,7 +1,8 @@
 package com.ntqsolution.demo.service.impl;
 
+import com.ntqsolution.demo.entity.AbstractEntity;
 import com.ntqsolution.demo.entity.Student;
-import com.ntqsolution.demo.redis.impl.StudentRedis;
+import com.ntqsolution.demo.redis.impl.StudentRedisRepositoryImpl;
 import com.ntqsolution.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,30 +13,30 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
-    StudentRedis studentRedis;
+    StudentRedisRepositoryImpl studentRedisRepositoryImpl;
 
     @Override
     public void addStudent(Student student) {
-        studentRedis.setStudent(student);
+        studentRedisRepositoryImpl.setStudent(student);
     }
 
     @Override
     public void updateStudent(Student student) {
-        studentRedis.setStudent(student);
+        studentRedisRepositoryImpl.setStudent(student);
     }
 
     @Override
-    public List<Student> getStudents() {
-        return studentRedis.getStudent();
+    public List<AbstractEntity> getStudents() {
+        return studentRedisRepositoryImpl.getStudent();
     }
 
     @Override
     public Student getStudentById(String id) {
-        return studentRedis.getStudentById(id);
+        return studentRedisRepositoryImpl.getStudentById(id);
     }
 
     @Override
     public void deleteStudent(String id) {
-        studentRedis.deleteStudent(id);
+        studentRedisRepositoryImpl.deleteStudent(id);
     }
 }

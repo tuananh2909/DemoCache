@@ -1,5 +1,6 @@
 package com.ntqsolution.demo.redis;
 
+import com.ntqsolution.demo.entity.AbstractEntity;
 import com.ntqsolution.demo.entity.Student;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface StudentRedisRepository {
 
     Student getStudentById(String id);
 
-    List<Student> getStudent();
+    List<AbstractEntity> getStudent();
 
     void deleteStudent(String id);
 }

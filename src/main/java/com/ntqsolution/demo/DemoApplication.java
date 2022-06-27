@@ -1,6 +1,6 @@
 package com.ntqsolution.demo;
 
-import com.ntqsolution.demo.redis.impl.PointRedis;
+import com.ntqsolution.demo.redis.impl.PointRedisRepositoryImpl;
 import com.ntqsolution.demo.redis.RedisFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication implements CommandLineRunner {
 
     @Autowired
-    PointRedis pointRedis;
+    PointRedisRepositoryImpl pointRedisRepositoryImpl;
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);

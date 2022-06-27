@@ -1,6 +1,7 @@
 package com.ntqsolution.demo.response.student;
 
 
+import com.ntqsolution.demo.entity.AbstractEntity;
 import com.ntqsolution.demo.entity.Student;
 import com.ntqsolution.demo.response.Response;
 import lombok.Getter;
@@ -12,5 +13,5 @@ import java.util.List;
 @Setter
 public class StudentGetAllResponse extends Response {
 
-   private List<Student> studentList;
+   private List<AbstractEntity> studentList;
 }

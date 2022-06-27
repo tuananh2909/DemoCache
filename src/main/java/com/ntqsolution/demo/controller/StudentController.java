@@ -52,7 +52,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deleteStudent(@PathVariable("id") int id) {
+    public BaseResponse deleteStudent(@PathVariable("id") String id) {
         return studentDeleteAPI.doExecute(new StudentDeleteRequest(id));
     }
 }
